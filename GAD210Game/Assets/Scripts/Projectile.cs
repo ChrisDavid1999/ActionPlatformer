@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
     public float distance;
     public LayerMask hittable;
     public int damage;
+    public bool rocket = false;
 
     // Start is called before the first frame update
     void Start()

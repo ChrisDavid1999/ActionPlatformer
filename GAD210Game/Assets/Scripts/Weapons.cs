@@ -49,6 +49,9 @@ public class Weapons : MonoBehaviour
         if (ScrollWeapon())
             ChangeWeapon();
 
+        if (KeyboardWeapon())
+            ChangeWeapon();
+        
     }
 
     public void Shoot()
@@ -81,11 +84,43 @@ public class Weapons : MonoBehaviour
         return false;
     }
 
+
+    bool KeyboardWeapon()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            currentWeapon = 0;
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentWeapon = 1;
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            currentWeapon = 2;
+            return true;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            currentWeapon = 3;
+            return true;
+        }
+
+        return false;
+    }
+
     void ChangeWeapon()
     {
         gunComp = weapons[currentWeapon].GetComponent<Gun>();
         setFireRate = gunComp.fireRate/2;
         gunSprite = weapons[currentWeapon].GetComponent<SpriteRenderer>();
         GetComponent<SpriteRenderer>().sprite = gunSprite.sprite;
+    }
+
+    public int GetWeaponPosition()
+    {
+        return currentWeapon;
     }
 }

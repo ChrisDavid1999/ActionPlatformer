@@ -16,7 +16,7 @@ TagManager:
   - 
   - World
   - Enemy
-  - 
+  - PostProcessing
   - 
   - 
   - 
@@ -47,4 +47,7 @@ TagManager:
     locked: 0
   - name: New Layer
     uniqueID: 1490858407
+    locked: 0
+  - name: UI
+    uniqueID: 1287136589
     locked: 0

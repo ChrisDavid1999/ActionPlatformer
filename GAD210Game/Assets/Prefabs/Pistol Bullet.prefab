@@ -94,10 +94,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71b57d1e38775b45a5353710d046a7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
+  speed: 30
   time: 1
-  distance: 0.05
+  distance: 0.5
   hittable:
     serializedVersion: 2
     m_Bits: 768
   damage: 50
+  rocket: 0

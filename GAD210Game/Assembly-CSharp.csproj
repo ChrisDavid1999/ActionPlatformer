@@ -64,10 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Aim.cs" />
+    <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Controller.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Gun.cs" />
+    <Compile Include="Assets\Scripts\Icons.cs" />
     <Compile Include="Assets\Scripts\Projectile.cs" />
+    <Compile Include="Assets\Scripts\SlowdownIcon.cs" />
     <Compile Include="Assets\Scripts\Weapons.cs" />
     <Reference Include="UnityEngine">
       <HintPath>E:/Unity/2019.4.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -633,6 +636,9 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.Postprocessing.Editor">
+      <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
@@ -650,6 +656,9 @@
     </Reference>
     <Reference Include="Unity.2D.Common.Runtime">
       <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.2D.Common.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Postprocessing.Runtime">
+      <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Tilemap.Editor">
       <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
@@ -677,12 +686,6 @@
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/chris/Documents/GitHub/Gad210Actual/GAD210Game/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup></ItemGroup>
