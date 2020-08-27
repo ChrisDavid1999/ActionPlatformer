@@ -34,6 +34,7 @@ public class Controller : MonoBehaviour
         player = GetComponent<Rigidbody2D>();
         slowTimer = slowCoolDown;
         iconColor = slowTimerBack.color;
+        fixedTime = Time.fixedDeltaTime;
     }
 
     // Update is called once per frame
@@ -128,6 +129,7 @@ public class Controller : MonoBehaviour
         if(player.position.y < -50)
         {
             this.transform.position = currentSpawnPoint.position;
+            health -= 10;
         }
     }
 }
