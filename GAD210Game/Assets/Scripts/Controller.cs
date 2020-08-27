@@ -26,6 +26,7 @@ public class Controller : MonoBehaviour
     private float slowTimer;
     private bool slowOnCooldown = false;
     private Color iconColor;
+    private Transform currentSpawnPoint;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,7 @@ public class Controller : MonoBehaviour
         Jump();
         UpdateHealthBar();
         SlowDown();
+        Respawn();
     }
 
     void MoveX()
@@ -77,7 +79,6 @@ public class Controller : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        Debug.Log(hpBar.fillAmount);
         hpBar.fillAmount = health / 100;
     }
 
@@ -111,5 +112,22 @@ public class Controller : MonoBehaviour
 
         slowTimerBack.fillAmount = slowTimer / slowCoolDown;
         Time.fixedDeltaTime = fixedTime * Time.timeScale;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        GameObject hit = collision.gameObject;
+        if (hit.tag == "Checkpoint")
+        {
+            currentSpawnPoint = hit.transform;
+        }
+    }
+
+    void Respawn()
+    {
+        if(player.position.y < -50)
+        {
+            this.transform.position = currentSpawnPoint.position;
+        }
     }
 }

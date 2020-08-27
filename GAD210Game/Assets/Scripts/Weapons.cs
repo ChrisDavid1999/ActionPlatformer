@@ -61,7 +61,6 @@ public class Weapons : MonoBehaviour
 
     bool ScrollWeapon()
     {
-        Debug.Log(currentWeapon);
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
         {
             if (currentWeapon == 0)
