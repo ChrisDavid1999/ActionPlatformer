@@ -10,11 +10,14 @@ public class Enemy : MonoBehaviour
     public Projectile projectile;
     public Transform player;
     private float storeShotTimer;
+    private SpriteRenderer sprite;
+    public Color[] damageIndicator;
 
     // Start is called before the first frame update
     void Start()
     {
         storeShotTimer = shotTimer;
+        sprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -26,7 +29,16 @@ public class Enemy : MonoBehaviour
 
     void CheckHealth()
     {
-        if(health <= 0)
+        if (health == 100)
+            sprite.color = damageIndicator[3];
+        else if(health < 76 && health > 49)
+            sprite.color = damageIndicator[2];
+        else if(health < 50 && health > 25)
+            sprite.color = damageIndicator[1];
+        else if (health <= 25)
+            sprite.color = damageIndicator[0];
+
+        if (health <= 0)
         {
             Destroy(gameObject);
         }
