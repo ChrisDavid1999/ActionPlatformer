@@ -22,6 +22,7 @@ public class Controller : MonoBehaviour
     public float timeScale;
     public float slowCoolDown;
 
+    private int jumpCount;
     private float fixedTime;
     private float slowTimer;
     private bool slowOnCooldown = false;
@@ -35,6 +36,7 @@ public class Controller : MonoBehaviour
         slowTimer = slowCoolDown;
         iconColor = slowTimerBack.color;
         fixedTime = Time.fixedDeltaTime;
+        jumpCount = jumps;
     }
 
     // Update is called once per frame
@@ -74,7 +76,7 @@ public class Controller : MonoBehaviour
 
         if(groundCol != null)
         {
-            jumps = 2;
+            jumps = jumpCount;
         }
     }
 
@@ -120,8 +122,11 @@ public class Controller : MonoBehaviour
         GameObject hit = collision.gameObject;
         if (hit.tag == "Checkpoint")
         {
-            currentSpawnPoint = hit.transform;
+            Transform tempTrans = hit.transform;
+            tempTrans.position = new Vector3(tempTrans.position.x, tempTrans.position.y, 0);
+            currentSpawnPoint = tempTrans;
         }
+
     }
 
     void Respawn()
@@ -131,5 +136,10 @@ public class Controller : MonoBehaviour
             this.transform.position = currentSpawnPoint.position;
             health -= 10;
         }
+    }
+    
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 }

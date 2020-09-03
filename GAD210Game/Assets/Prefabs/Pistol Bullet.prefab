@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6720985199835966720}
   m_Layer: 9
   m_Name: Pistol Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,3 +102,4 @@ MonoBehaviour:
     m_Bits: 768
   damage: 50
   rocket: 0
+  enemy: 0

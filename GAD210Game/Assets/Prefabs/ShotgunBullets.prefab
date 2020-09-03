@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3764357571266717011}
   m_Layer: 0
   m_Name: ShotgunBullets
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,9 +96,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   time: 0.5
-  distance: 0.1
+  distance: 0.5
   hittable:
     serializedVersion: 2
     m_Bits: 768
   damage: 100
   rocket: 0
+  enemy: 0

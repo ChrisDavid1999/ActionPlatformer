@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
     public LayerMask hittable;
     public int damage;
     public bool rocket = false;
+    public bool enemy = false;
+    private RaycastHit2D checkShot;
 
     // Start is called before the first frame update
     void Start()
@@ -27,16 +29,42 @@ public class Projectile : MonoBehaviour
 
     void CheckCollision()
     {
-        RaycastHit2D checkShot = Physics2D.Raycast(transform.position, Vector2.right, distance, hittable);
-
+        checkShot = Physics2D.Raycast(transform.position, Vector2.right, distance, hittable);
         if(checkShot.collider != null)
         {
-            if(checkShot.collider.tag == "Enemy")
+            if(!enemy)
             {
-                Enemy hitEnemy = checkShot.collider.GetComponent<Enemy>();
-                hitEnemy.TakeDamage(damage);
+                if (checkShot.collider.tag == "Enemy")
+                {
+                    Enemy hitEnemy = checkShot.collider.GetComponent<Enemy>();
+                    hitEnemy.TakeDamage(damage);
+                    Destroy(gameObject);
+                }
+                else if (checkShot.collider.tag == "Breakable")
+                {
+                    Breakable breakIt = checkShot.collider.GetComponent<Breakable>();
+                    breakIt.DestroyBreakable();
+                }
+                else
+                    Destroy(gameObject);
             }
-            Destroy(gameObject);
+            else
+            {
+                if (checkShot.collider.tag == "Player")
+                {
+                    Controller player = checkShot.collider.GetComponent<Controller>();
+                    player.TakeDamage(damage);
+                }
+                Destroy(gameObject);
+            }
+            
         }
+
+
+    }
+
+    public RaycastHit2D GetCheckShot()
+    {
+        return checkShot;
     }
 }
