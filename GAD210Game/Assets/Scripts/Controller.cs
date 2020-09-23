@@ -9,7 +9,6 @@ public class Controller : MonoBehaviour
     private Rigidbody2D player;
     public float speed = 1f;
     public float jumpAcc = 10f;
-    public float health = 100;
     public int jumps = 2;
     public float direction = 1f;
     public LayerMask ground;
@@ -22,6 +21,7 @@ public class Controller : MonoBehaviour
     public float timeScale;
     public float slowCoolDown;
 
+    private float health;
     private int jumpCount;
     private float fixedTime;
     private float slowTimer;
@@ -32,6 +32,7 @@ public class Controller : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        health = Manager.GetInstance.maxHealth;
         player = GetComponent<Rigidbody2D>();
         slowTimer = slowCoolDown;
         iconColor = slowTimerBack.color;
@@ -82,7 +83,7 @@ public class Controller : MonoBehaviour
 
     void UpdateHealthBar()
     {
-        hpBar.fillAmount = health / 100;
+        hpBar.fillAmount = health / Manager.GetInstance.maxHealth;
     }
 
     void SlowDown()
@@ -133,13 +134,40 @@ public class Controller : MonoBehaviour
     {
         if(player.position.y < -50)
         {
-            this.transform.position = currentSpawnPoint.position;
             health -= 10;
+            CheckHealth();
+            this.transform.position = currentSpawnPoint.position;
         }
     }
     
     public void TakeDamage(int damage)
     {
         health -= damage;
+        CheckHealth();
+    }
+
+    void CheckHealth()
+    {
+        if (health > Manager.GetInstance.maxHealth)
+            health = Manager.GetInstance.maxHealth;
+        else if (health <= 0)
+            Die();
+    }
+
+    void Die()
+    {
+        Debug.Log("The player has died, need to add functionality to this");
+    }
+
+    public bool Heal(float healAmount)
+    {
+        if (health < Manager.GetInstance.maxHealth)
+        {
+            health += healAmount;
+            CheckHealth();
+            return true;
+        }
+
+        return false;
     }
 }

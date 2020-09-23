@@ -8,20 +8,27 @@ public class Projectile : MonoBehaviour
     public float time;
     public float distance;
     public LayerMask hittable;
-    public int damage;
+    public float damage;
     public bool rocket = false;
+    public bool shotgun = false;
     public bool enemy = false;
     private RaycastHit2D checkShot;
+    private float shotTime;
 
     // Start is called before the first frame update
     void Start()
     {
+        shotTime = time;
         Destroy(gameObject, time);
     }
 
     // Update is called once per frame
     void Update()
     {
+        shotTime -= Time.deltaTime;
+        if (shotTime - Time.deltaTime < 0)
+            shotTime = 0;
+
         CheckCollision();
 
         transform.Translate(Vector2.right * speed * Time.deltaTime);//moves the object
@@ -37,7 +44,12 @@ public class Projectile : MonoBehaviour
                 if (checkShot.collider.tag == "Enemy")
                 {
                     Enemy hitEnemy = checkShot.collider.GetComponent<Enemy>();
-                    hitEnemy.TakeDamage(damage);
+
+                    if(shotgun)
+                        hitEnemy.TakeDamage((float)damage * shotTime);
+                    else
+                        hitEnemy.TakeDamage(damage);
+
                     Destroy(gameObject);
                 }
                 else if (checkShot.collider.tag == "Breakable")
@@ -53,7 +65,7 @@ public class Projectile : MonoBehaviour
                 if (checkShot.collider.tag == "Player")
                 {
                     Controller player = checkShot.collider.GetComponent<Controller>();
-                    player.TakeDamage(damage);
+                    player.TakeDamage((int)damage);
                 }
                 Destroy(gameObject);
             }

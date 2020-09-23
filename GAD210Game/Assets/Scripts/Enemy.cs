@@ -12,12 +12,15 @@ public class Enemy : MonoBehaviour
     private float storeShotTimer;
     private SpriteRenderer sprite;
     public Color[] damageIndicator;
+    private int fullHealth;
+    public LayerMask playerLayer;
 
     // Start is called before the first frame update
     void Start()
     {
         storeShotTimer = shotTimer;
         sprite = GetComponent<SpriteRenderer>();
+        fullHealth = health;
     }
 
     // Update is called once per frame
@@ -29,13 +32,15 @@ public class Enemy : MonoBehaviour
 
     void CheckHealth()
     {
-        if (health == 100)
+        float scaledHealth = (float)health / (float)fullHealth;
+        Debug.Log("Scaled health: " + scaledHealth);
+        if (scaledHealth == 1)
             sprite.color = damageIndicator[3];
-        else if(health < 76 && health > 49)
+        else if(scaledHealth <= 0.75 && scaledHealth > 0.5)
             sprite.color = damageIndicator[2];
-        else if(health < 50 && health > 25)
+        else if(scaledHealth <= 0.50 && scaledHealth > 0.25)
             sprite.color = damageIndicator[1];
-        else if (health <= 25)
+        else if (scaledHealth <= 0.25)
             sprite.color = damageIndicator[0];
 
         if (health <= 0)
@@ -44,9 +49,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int dmg)
+    public void TakeDamage(float dmg)
     {
-        health -= dmg;
+        health -= (int)dmg;
     }
 
     void FindPlayer()
@@ -55,8 +60,20 @@ public class Enemy : MonoBehaviour
         {
             Vector3 direction = player.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            Shoot();
+            Quaternion shootAngle = Quaternion.AngleAxis(angle, Vector3.forward);
+            transform.rotation = shootAngle;
+            Vector3 rayDirection = shootAngle * Vector3.right;
+            RaycastHit2D checkForPlayer = Physics2D.Raycast(transform.position, rayDirection, playerLayer);
+            Debug.DrawRay(transform.position, rayDirection, Color.green);
+
+            if(checkForPlayer.collider != null)
+            {
+                Debug.Log(checkForPlayer.collider);
+                if(checkForPlayer.collider.tag == "Player")
+                {
+                    Shoot();
+                } 
+            }
         }
     }
 

@@ -100,6 +100,6 @@ MonoBehaviour:
   hittable:
     serializedVersion: 2
     m_Bits: 768
-  damage: 50
+  damage: 45
   rocket: 0
   enemy: 0
