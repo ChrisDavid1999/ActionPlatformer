@@ -26,14 +26,17 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckHealth();
-        FindPlayer();
+        if(Manager.GetAlive() && !Manager.GetPaused())
+        {
+            CheckHealth();
+            FindPlayer();
+        }
     }
 
+    //Checks the health of this object
     void CheckHealth()
     {
         float scaledHealth = (float)health / (float)fullHealth;
-        Debug.Log("Scaled health: " + scaledHealth);
         if (scaledHealth == 1)
             sprite.color = damageIndicator[3];
         else if(scaledHealth <= 0.75 && scaledHealth > 0.5)
@@ -54,23 +57,22 @@ public class Enemy : MonoBehaviour
         health -= (int)dmg;
     }
 
+    //Finds the player to attempt to shoot at them
     void FindPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < range)
+        if (Vector3.Distance(transform.position, player.position) < range && Manager.GetAlive())
         {
             Vector3 direction = player.position - transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion shootAngle = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = shootAngle;
             Vector3 rayDirection = shootAngle * Vector3.right;
-            RaycastHit2D checkForPlayer = Physics2D.Raycast(transform.position, rayDirection, playerLayer);
-            Debug.DrawRay(transform.position, rayDirection, Color.green);
+            RaycastHit2D checkForPlayer = Physics2D.Raycast(transform.position, rayDirection, range, playerLayer);
 
             if(checkForPlayer.collider != null)
             {
-                Debug.Log(checkForPlayer.collider);
                 if(checkForPlayer.collider.tag == "Player")
                 {
+                    transform.rotation = shootAngle;
                     Shoot();
                 } 
             }

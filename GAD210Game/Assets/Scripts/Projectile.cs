@@ -34,6 +34,7 @@ public class Projectile : MonoBehaviour
         transform.Translate(Vector2.right * speed * Time.deltaTime);//moves the object
     }
 
+    //Checks to see if it has hit anything
     void CheckCollision()
     {
         checkShot = Physics2D.Raycast(transform.position, Vector2.right, distance, hittable);
@@ -57,8 +58,6 @@ public class Projectile : MonoBehaviour
                     Breakable breakIt = checkShot.collider.GetComponent<Breakable>();
                     breakIt.DestroyBreakable();
                 }
-                else
-                    Destroy(gameObject);
             }
             else
             {
@@ -67,12 +66,11 @@ public class Projectile : MonoBehaviour
                     Controller player = checkShot.collider.GetComponent<Controller>();
                     player.TakeDamage((int)damage);
                 }
-                Destroy(gameObject);
             }
-            
+
+            Destroy(gameObject);
+
         }
-
-
     }
 
     public RaycastHit2D GetCheckShot()

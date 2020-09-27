@@ -14,6 +14,8 @@ public class MainCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector3(playerPos.position.x, playerPos.position.y, this.transform.position.z);
+        //If the player is alive, the camera will follow them
+        if(Manager.GetAlive())
+            this.transform.position = new Vector3(playerPos.position.x, playerPos.position.y, this.transform.position.z);
     }
 }

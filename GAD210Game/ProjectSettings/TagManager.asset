@@ -9,6 +9,7 @@ TagManager:
   - World
   - Bullet
   - Breakable
+  - Gravityzone
   layers:
   - Default
   - TransparentFX

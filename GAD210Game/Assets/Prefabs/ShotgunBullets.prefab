@@ -96,7 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   time: 0.6
-  distance: 0.5
+  distance: 0.15
   hittable:
     serializedVersion: 2
     m_Bits: 768

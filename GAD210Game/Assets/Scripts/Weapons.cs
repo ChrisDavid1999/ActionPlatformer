@@ -27,31 +27,33 @@ public class Weapons : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (setFireRate <= 0)
+        if (!Manager.GetPaused() && Manager.GetAlive())
         {
-            if (Input.GetButtonDown("Fire1") && !gunComp.auto)
+            if (setFireRate <= 0)
             {
-                Shoot();
-                setFireRate = gunComp.fireRate;
-            }
-            else if(Input.GetButton("Fire1") && gunComp.auto)//Auto weapons can be held down
-            {
-                Shoot();
-                setFireRate = gunComp.fireRate;
-            }
+                if (Input.GetButtonDown("Fire1") && !gunComp.auto)
+                {
+                    Shoot();
+                    setFireRate = gunComp.fireRate;
+                }
+                else if(Input.GetButton("Fire1") && gunComp.auto)//Auto weapons can be held down
+                {
+                    Shoot();
+                    setFireRate = gunComp.fireRate;
+                }
                 
-        }
-        else
-        {
-            setFireRate -= Time.deltaTime;
-        }
+            }
+            else
+            {
+                setFireRate -= Time.deltaTime;
+            }
 
-        if (ScrollWeapon())
-            ChangeWeapon();
+            if (ScrollWeapon())
+                ChangeWeapon();
 
-        if (KeyboardWeapon())
-            ChangeWeapon();
-        
+            if (KeyboardWeapon())
+                ChangeWeapon();
+        }
     }
 
     public void Shoot()
@@ -59,6 +61,7 @@ public class Weapons : MonoBehaviour
         Instantiate(gunComp.projectile, shotPos[currentWeapon].position, transform.rotation);
     }
 
+    //Changes the weapon through scrolling
     bool ScrollWeapon()
     {
         if(Input.GetAxis("Mouse ScrollWheel") > 0f)
@@ -83,7 +86,7 @@ public class Weapons : MonoBehaviour
         return false;
     }
 
-
+    //Changes which weapon is selected through keyboard input
     bool KeyboardWeapon()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -101,15 +104,11 @@ public class Weapons : MonoBehaviour
             currentWeapon = 2;
             return true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentWeapon = 3;
-            return true;
-        }
 
         return false;
     }
 
+    //Changes the weapon and values accosiated
     void ChangeWeapon()
     {
         gunComp = weapons[currentWeapon].GetComponent<Gun>();
@@ -118,6 +117,7 @@ public class Weapons : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = gunSprite.sprite;
     }
 
+    //Gets the weapons current position
     public int GetWeaponPosition()
     {
         return currentWeapon;

@@ -5,18 +5,8 @@ using UnityEngine;
 public class HealthPickup : MonoBehaviour
 {
     public float healAmount;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+    //When there is a collision with the object that hosts the players controller, attempt to heal then
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Controller hit = collision.GetComponent<Controller>();

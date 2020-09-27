@@ -17,7 +17,7 @@ public class Breakable : MonoBehaviour
     {
         color.a = 0.25f;
     }
-
+    //Destroys the object that has been hit
     public void DestroyBreakable()
     {
         if(wall != null)

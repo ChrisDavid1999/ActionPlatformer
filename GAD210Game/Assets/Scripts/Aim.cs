@@ -17,13 +17,16 @@ public class Aim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //If the player is alive, move the weapon to face the mouse
+        if(Manager.GetAlive() && !Manager.GetPaused())
+        {
+            Vector3 mouseWeaponDifference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - weapon.transform.position;
+            float rotation = Mathf.Atan2(mouseWeaponDifference.y, mouseWeaponDifference.x) * Mathf.Rad2Deg;
 
-        Vector3 mouseWeaponDifference = Camera.main.ScreenToWorldPoint(Input.mousePosition) - weapon.transform.position;
-        float rotation = Mathf.Atan2(mouseWeaponDifference.y, mouseWeaponDifference.x) * Mathf.Rad2Deg;
-
-        weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
-        LookingDirection(rotation);
+            weapon.transform.rotation = Quaternion.Euler(0f, 0f, rotation);
+            LookingDirection(rotation);
+        }
+            
     }
 
     void LookingDirection(float rot)
@@ -39,5 +42,10 @@ public class Aim : MonoBehaviour
             facingRight = true;
         }
             
+    }
+
+    public void FlipWeaponY()
+    {
+            w_sprite.flipY = false;
     }
 }

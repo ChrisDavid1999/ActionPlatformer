@@ -96,10 +96,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 30
   time: 1
-  distance: 0.5
+  distance: 0.15
   hittable:
     serializedVersion: 2
     m_Bits: 768
   damage: 45
   rocket: 0
+  shotgun: 0
   enemy: 0
