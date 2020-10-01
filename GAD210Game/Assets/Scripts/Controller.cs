@@ -186,6 +186,10 @@ public class Controller : MonoBehaviour
             gravityBack.color = iconColor;
             gravChange = true;
         }
+        else if(hit.tag == "End")
+        {
+            Manager.SetFinished(true);
+        }
 
     }
 

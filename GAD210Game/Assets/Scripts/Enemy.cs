@@ -21,12 +21,13 @@ public class Enemy : MonoBehaviour
         storeShotTimer = shotTimer;
         sprite = GetComponent<SpriteRenderer>();
         fullHealth = health;
+        Manager.AddEnemy();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Manager.GetAlive() && !Manager.GetPaused())
+        if(Manager.GetAlive() && !Manager.GetPaused() && !Manager.GetFinished())
         {
             CheckHealth();
             FindPlayer();
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
 
         if (health <= 0)
         {
+            Manager.TakeEnemy();
             Destroy(gameObject);
         }
     }
@@ -88,6 +90,5 @@ public class Enemy : MonoBehaviour
         }
         else
             shotTimer -= Time.deltaTime;
-        
     }
 }

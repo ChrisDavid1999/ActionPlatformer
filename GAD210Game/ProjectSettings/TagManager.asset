@@ -10,6 +10,7 @@ TagManager:
   - Bullet
   - Breakable
   - Gravityzone
+  - End
   layers:
   - Default
   - TransparentFX
