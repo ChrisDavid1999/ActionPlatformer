@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/Escape.unity
+- path: Assets/Scenes/Skyhigh.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0

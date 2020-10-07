@@ -55,7 +55,7 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Manager.GetAlive() && !Manager.GetPaused())
+        if(Manager.GetAlive() && !Manager.GetPaused() && !Manager.GetFinished())
         {
             MoveX();
             GroundCheck();
