@@ -45,7 +45,7 @@ public class Projectile : MonoBehaviour
                 if (checkShot.collider.tag == "Enemy")
                 {
                     Enemy hitEnemy = checkShot.collider.GetComponent<Enemy>();
-
+                    
                     if(shotgun)
                         hitEnemy.TakeDamage((float)damage * shotTime);
                     else
@@ -58,6 +58,17 @@ public class Projectile : MonoBehaviour
                     Breakable breakIt = checkShot.collider.GetComponent<Breakable>();
                     breakIt.DestroyBreakable();
                 }
+            }
+            else if (checkShot.collider.tag == "HomingEnemy")
+            {
+                HoamingEnemy hitEnemy = checkShot.collider.GetComponent<HoamingEnemy>();
+
+                if (shotgun)
+                    hitEnemy.TakeDamage((float)damage * shotTime);
+                else
+                    hitEnemy.TakeDamage(damage);
+
+                Destroy(gameObject);
             }
             else
             {
