@@ -6,7 +6,7 @@ public class HoamingEnemy : MonoBehaviour
 {
     public int health;
     public float range;
-    public Transform player;
+    public GameObject target;
     private SpriteRenderer sprite;
     public Color[] damageIndicator;
     private int fullHealth;
@@ -23,20 +23,16 @@ public class HoamingEnemy : MonoBehaviour
         fullHealth = health;
         Manager.AddEnemy();
         rb = GetComponent<Rigidbody2D>();
-        foundPlayer = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (Manager.GetAlive() && !Manager.GetPaused() && !Manager.GetFinished())
         {
             CheckHealth();
-
-            if (!foundPlayer)
-                FindPlayer();
-            else
-                MoveToPlayer();
+            MoveToPlayer();
+            
         }
     }
 
@@ -64,33 +60,25 @@ public class HoamingEnemy : MonoBehaviour
     //Finds the player to attempt to shoot at them
     void FindPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < range && Manager.GetAlive())
-        {
-            Vector3 direction = player.position - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion shootAngle = Quaternion.AngleAxis(angle, Vector3.forward);
-            Vector3 rayDirection = shootAngle * Vector3.right;
-            RaycastHit2D checkForPlayer = Physics2D.Raycast(transform.position, rayDirection, range, playerLayer);
-
-            if (checkForPlayer.collider != null)
-            {
-                if (checkForPlayer.collider.tag == "Player")
-                {
-                    foundPlayer = true;
-                    Debug.Log("Player found");
-                }
-            }
-        }
+       
     }
 
     void MoveToPlayer()
     {
-        rb.velocity = Vector3.right * speed * Time.deltaTime;
-        Vector3 target = player.position - transform.position;
-        Vector3 direction = player.position - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion shootAngle = Quaternion.AngleAxis(angle, Vector3.forward);
-        rb.angularVelocity = angle * rotSpeed * Time.deltaTime;
+        Vector2 point = (Vector2)transform.position - (Vector2)target.transform.position;
+        point.Normalize();
+        float crossVal = Vector3.Cross(point, transform.right).z;
+
+        if(crossVal > 0)
+        {
+            rb.angularVelocity = -rotSpeed;
+        }
+        else if(crossVal < 0)
+        {
+            rb.angularVelocity = rotSpeed;
+        }
+
+        rb.velocity = transform.right * speed;
     }
 
 }

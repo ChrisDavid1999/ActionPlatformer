@@ -29,6 +29,7 @@ public class Aim : MonoBehaviour
             
     }
 
+    //Checks what direction the play is facing
     void LookingDirection(float rot)
     {
         if (rot > -90 && rot < 90)
@@ -44,6 +45,7 @@ public class Aim : MonoBehaviour
             
     }
 
+   //Flips the weapon on the Y axis
     public void FlipWeaponY()
     {
             w_sprite.flipY = false;

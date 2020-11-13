@@ -56,6 +56,7 @@ public class Weapons : MonoBehaviour
         }
     }
 
+    //Creates the projectile
     public void Shoot()
     {
         Instantiate(gunComp.projectile, shotPos[currentWeapon].position, transform.rotation);

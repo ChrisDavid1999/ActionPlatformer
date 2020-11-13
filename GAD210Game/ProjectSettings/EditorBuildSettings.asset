@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Escape.unity
     guid: 7fc7b07c6cadd574a9d7c0771bcb5ead
+  - enabled: 1
+    path: Assets/Scenes/Skyhigh.unity
+    guid: 4deb5114742dcce4dbffa80c928975d0
+  - enabled: 1
+    path: Assets/Scenes/Zoom.unity
+    guid: a33a3306d569c9146a20610adc6dbd1c
   m_configObjects: {}

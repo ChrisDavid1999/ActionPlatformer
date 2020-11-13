@@ -115,4 +115,14 @@ public class Interface : MonoBehaviour
         gameMenuShowing = Manager.GetPaused();
         gameUiShowing = true;
     }
+
+    public void LoadLevel(string name)
+    {
+        Manager.GetInstance.LoadLevel(name);
+    }
+
+    public void SaveGame()
+    {
+        Manager.GetInstance.SaveGame();
+    }
 }

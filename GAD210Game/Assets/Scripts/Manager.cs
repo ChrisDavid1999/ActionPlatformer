@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Manager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class Manager : MonoBehaviour
     private static Manager instance;
     private static bool paused;
     private static bool finished;
-
+    private GameData gameData;
+    private string saveFileName = "data.json";
 
     public float maxHealth;
     private static int enemyCount = 0;
@@ -37,8 +39,14 @@ public class Manager : MonoBehaviour
         }
     }
 
+    public GameData GetGameData()
+    {
+        return gameData;
+    }
+
     void Start()
     {
+        gameData = new GameData();
         SetAlive(true);
         paused = false;
         finished = false;
@@ -47,7 +55,6 @@ public class Manager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(enemyCount);
 
         if (paused)
             Time.timeScale = 0;
@@ -127,8 +134,10 @@ public class Manager : MonoBehaviour
     //Reloads the level (This does not work once the package is exported, i am not sure why)
     public static void ReloadLevel()
     {
+        alive = true;
+        paused = false;
+        finished = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SetAlive(true);
         SetBothEnemies(0);
     }
 
@@ -137,6 +146,63 @@ public class Manager : MonoBehaviour
     public static void ExitToMenu()
     {
         SceneManager.LoadScene(0);
-        Destroy(instance);
     }    
+
+    public void LoadLevel(string levelName)
+    {
+        alive = true;
+        paused = false;
+        finished = false;
+        enemyCount = 0;
+        enemyCountTotal = 0;
+
+        if (levelName == "Escape")
+            gameData.Escape = true;
+        else if (levelName == "Skyhigh")
+            gameData.Skyhigh = true;
+        else if (levelName == "Zoom")
+            gameData.Zoom = true;
+
+
+        SceneManager.LoadScene(levelName);
+        SaveGame(); 
+    }
+
+    public void LoadNew()
+    {
+        gameData = new GameData();
+        alive = true;
+        paused = false;
+        finished = false;
+        enemyCount = 0;
+        enemyCountTotal = 0;
+        SceneManager.LoadScene("Escape");
+        SaveGame();
+    }
+
+    void SetGameData(GameData d)
+    {
+        gameData = d;
+    }
+
+    public void LoadGame()
+    {
+        string filePath = Application.streamingAssetsPath + "/" + saveFileName;
+
+        if (File.Exists(filePath))
+        {
+            string dataAsJson = File.ReadAllText(filePath);
+            GameData loadedData = JsonUtility.FromJson<GameData>(dataAsJson);
+            SetGameData(loadedData);
+        }
+    }
+
+    public void SaveGame()
+    {
+        GameData gd = gameData;
+        string jsonData = JsonUtility.ToJson(gd);
+        //Debug.Log(jsonData);
+        string filePath = Application.streamingAssetsPath + "/" + saveFileName;
+        File.WriteAllText(filePath, jsonData);
+    }
 }

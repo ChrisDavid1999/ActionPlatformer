@@ -18,7 +18,7 @@ public class LevelTimer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Updates the timer for the level (will be moved to game manager at somepoint, this is just what i did first)
+        //Updates the timer for the level
         if(!Manager.GetPaused() && !Manager.GetFinished())
         {
             time += Time.deltaTime / Time.timeScale;
